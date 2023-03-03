@@ -14,7 +14,8 @@ exec_always feh --bg-scale ~/.config/wall.png
 
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-new_window pixel 1
+#new_window pixel 1
+new_window none
 new_float normal
 
 
@@ -30,7 +31,7 @@ bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:URWGothic-Book 17
+font xft:URWGothic-Book 16
 
 
 # Use Mouse+$mod to drag floating windows
@@ -74,7 +75,7 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+x exec i3lock-fancy
+bindsym $mod+x exec lock
 bindsym $mod+Shift+x exec --no-startup-id xtrlock
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec chromium
@@ -246,6 +247,9 @@ for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
+
+# Remove borders for all windows
+# for_window [class="^.*"] border pixel 0
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

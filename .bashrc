@@ -111,6 +111,16 @@ alias dr="npm run build && python usage.py"
 #Activating virtual environment
 alias ve="source venv/bin/activate"
 
+#Open code editor with ddt project
+alias ddt="code ~/Comono/Inspera/Data-Discovery-Tool/ && exit"
+
+#Open code editor with prevale frontedn
+alias pf="code ~/Comono/prevale/prevale-frontend && exit"
+
+#Open code editor with prevale backend
+alias pb="code ~/Comono/prevale/prevale-backend && exit"
+
+
 xhost +local:root > /dev/null 2>&1
 
 complete -cf sudo
@@ -156,7 +166,7 @@ ex ()
 set -o vi
 
 export EDITOR="vim"
-export PATH="$HOME/bin:$HOME/bin/net.downloadhelper.coapp-1.6.3/bin:$HOME/bin/VSCode-linux-x64/:$PATH"
+export PATH="$PATH:$HOME/bin:$HOME/bin/net.downloadhelper.coapp-1.6.3/bin:$HOME/bin/VSCode-linux-x64/:/usr/local/go/bin/:$HOME/bin/Postman/:$HOME/go/bin/"
 #export TERM="xfce4-terminal"
 
 export NVM_DIR="$HOME/.nvm"
@@ -169,3 +179,12 @@ PS1='\[\e[32m\][Pacific \[\e[m\]\[\e[36m\]\W\[\e[m\]\[\e[32m\]$(__git_ps1 " git:
 
 # alias for handling git bare repo
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+
+# alias for running sqlc
+alias sqg='cd sqlc/ && sqlc generate && cd ..'
+
+#alias for starting psql service
+alias pserv='systemctl start postgresql.service'
+
+#open vscode and exit the terminal
+alias vs='code . && exit'
