@@ -188,3 +188,4 @@ alias pserv='systemctl start postgresql.service'
 
 #open vscode and exit the terminal
 alias vs='code . && exit'
+

@@ -1,0 +1,40 @@
+Welp Manjaro being Manjaro hasn't pre-installed the necessary network, audio drivers. 
+So let's do it.
+
+$$ First problem - Network.
+Check if the Kernel is LTS. 
+Install the kernel headers.
+Find out a good repo that maintains these drivers for your Chipset.
+For my HP Victus it was - https://github.com/lwfinger/rtw89
+Followed it and fixed the wifi issue.
+
+$$ Second problem - Sound
+Install pulseaudio, pavucontrol.
+
+Now adding ssh keys for diffrent accounts.
+Configuring git 
+
+Cloning the git bare repo for dotfiles.
+    refer :  https://www.atlassian.com/git/tutorials/dotfiles
+
+# To stop tracking off all the files in home directory : 
+  config config --local status.showUntrackedFiles no
+
+Installed Code OS from Package Manager
+By default code looks for extension only on store, so change the marketplace URLs in product.json to the official sites
+
+$$  Bluetooth
+Blueman seems the most organized bluetooth manager
+Follow this : https://wiki.archlinux.org/title/Blueman
+
+Install pulseadudio-bluetooth to link pulseaudio with bluetooth headsets.
+
+Craziest of all xD  ( Tried a bunch of bluetooth managers before it xD )
+
+$$ Setting up pass (gpg key, pass stores on laptop, mobile)
+
+refer for setup 1st time (not req again though) :  https://www.youtube.com/watch?v=sVkURNfxPd4
+for setting it up on new  system :  https://gist.github.com/abtrout/d64fb11ad6f9f49fa325
+
+    for mobile : use openkeychain for gpg management
+                 and password store ( available on fdroid and it's website if not on playstore)
