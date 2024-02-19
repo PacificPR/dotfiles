@@ -166,7 +166,7 @@ ex ()
 set -o vi
 
 export EDITOR="vim"
-export PATH="$PATH:$HOME/bin:$HOME/bin/net.downloadhelper.coapp-1.6.3/bin:$HOME/bin/VSCode-linux-x64/:/usr/local/go/bin/:$HOME/bin/Postman/:$HOME/go/bin/"
+export PATH="$PATH:$HOME/bin:$HOME/bin/net.downloadhelper.coapp-1.6.3/bin:$HOME/bin/VSCode-linux-x64/:/usr/local/go/bin/:$HOME/bin/Postman/:$HOME/go/bin/:$HOME/bin/Postman/app/"
 #export TERM="xfce4-terminal"
 
 export NVM_DIR="$HOME/.nvm"
@@ -189,3 +189,15 @@ alias pserv='systemctl start postgresql.service'
 #open vscode and exit the terminal
 alias vs='code . && exit'
 
+#remove bash_history limit 
+HISTSIZE=-1 
+HISTFILESIZE=-1
+
+#ignore duplicates and command starting with space to be saved in bash_history
+HISTCONTROL='ignoreboth'
+HISTIGNORE='ls:e'
+
+#pyenv configs
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
