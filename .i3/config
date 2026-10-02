@@ -47,7 +47,7 @@ bindsym $mod+Shift+q kill
 
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+d exec --no-startup-id rofi -show run -modi run
 
 # start terminal with screenfetch
 #bindsym $mod+s+Return exec screenfetch_terminal
@@ -75,7 +75,7 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+x exec lock
+bindsym $mod+x exec betterlockscreen -l dimblur
 bindsym $mod+Shift+x exec --no-startup-id xtrlock
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec chromium
@@ -249,7 +249,11 @@ for_window [class="Xfburn"] floating enable
 for_window [urgent=latest] focus
 
 # Remove borders for all windows
-# for_window [class="^.*"] border pixel 0
+ for_window [class="^.*"] border pixel 0
+
+#move certain application to fixed workspace as I like
+for_window [class="pavucontrol"] move to workspace 9
+for_window [class="Code"] move to workspace 2
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -265,7 +269,7 @@ bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (Shift+s)uspend, (h)ibernate, (r)eboot, (s)hutdown
 mode "$mode_system" {
     #bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym l exec --no-startup-id i3lock-fancy, mode "default"
+    bindsym l exec --no-startup-id betterlockscreen -l dim, mode "default"
     bindsym Shift+s exec --no-startup-id i3exit suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
@@ -313,13 +317,19 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
+exec --no-startup-id greenclip daemon
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 #exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-#exec --no-startup-id xautolock -time 50 -locker i3lock-fancy
+
+exec --no-startup-id xautolock -time 10 -locker "betterlockscreen -l dim" -detectsleep
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+
+# Display layout: external monitors go to the left of the laptop panel.
+# The watcher also re-applies on hotplug; it self-locks, so reload is safe.
+exec_always --no-startup-id ~/.local/bin/monitor-layout-watch
 
 # Wallpaper set
 exec_always --no-startup-id "$bg_cmd"
@@ -357,33 +367,41 @@ set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	i3bar_command i3bar
-	status_command i3status
-	position bottom
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
 
-	bindsym button4 nop
-	bindsym button5 nop
-    font pango:Noto Sans 18
-	strip_workspace_numbers yes
 
-    colors {
-        background #222D31
-        statusline #F9FAF9
-        separator  #454947
+#bar {
+#	#i3bar_command i3blocks
+#	i3bar_command i3bar
+#	status_command i3status
+#	position bottom
 
-#                      border  backgr. text
-        focused_workspace  #F9FAF9 #16a085 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
-    }
-}
+### please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+##	tray_output primary
+##	tray_output eDP1
+
+#	bindsym button4 nop
+#	bindsym button5 nop
+#    font pango:Noto Sans 14
+#	strip_workspace_numbers yes
+
+#    colors {
+#        background #222D31
+#        statusline #F9FAF9
+#        separator  #454947
+
+##                      border  backgr. text
+#        focused_workspace  #F9FAF9 #16a085 #292F34
+#        active_workspace   #595B5B #353836 #FDF6E3
+#        inactive_workspace #595B5B #222D31 #EEE8D5
+#        binding_mode       #16a085 #2C2C2C #F9FAF9
+#        urgent_workspace   #16a085 #FDF6E3 #E5201D
+#    }
+#}
+
+# bar {
+#     status_command i3blocks
+# }
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
@@ -470,7 +488,24 @@ bindsym --release Shift+Print exec "flameshot"
 # take a screenshot of a whole window and copy it to a clipboard
 bindsym --release Print exec "scregcp /home/prashant/Pictures/Screenshots/"
 
-#clipmenu
-bindsym $mod+c exec "clipmenu"
+#greenclip
+bindsym $mod+c exec "greenclip print | rofi -dmenu -i -p clipboard | xclip -selection clipboard"
+
+
+#flameshot
+bindsym $mod+Shift+p exec "flameshot full"
+
+# Toggle the external monitor in/out of the layout (adds it left of the panel).
+bindsym $mod+Shift+m exec --no-startup-id ~/.local/bin/monitor-layout-toggle
+bindsym XF86Display exec --no-startup-id ~/.local/bin/monitor-layout-toggle
 
 #exec --no-startup-id compton
+
+ exec_always --no-startup-id killall polybar
+ exec_always --no-startup-id ~/.config/polybar/launch_polybar.sh
+
+# set desktop background with custom effect
+exec --no-startup-id betterlockscreen -w dim
+
+# Alternative (set last used background)
+exec --no-startup-id source ~/.fehbg

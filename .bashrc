@@ -120,6 +120,14 @@ alias pf="code ~/Comono/prevale/prevale-frontend && exit"
 #Open code editor with prevale backend
 alias pb="code ~/Comono/prevale/prevale-backend && exit"
 
+#git aliases
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gco="git checkout"
+alias gcm="git checkout main"
+alias gp="git pull"
+alias gw="git worktree"
 
 xhost +local:root > /dev/null 2>&1
 
@@ -178,7 +186,7 @@ export NVM_DIR="$HOME/.nvm"
 PS1='\[\e[32m\][Pacific \[\e[m\]\[\e[36m\]\W\[\e[m\]\[\e[32m\]$(__git_ps1 " git:[%s]")]$\[\e[m\] '
 
 # alias for handling git bare repo
-alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # alias for running sqlc
 alias sqg='cd sqlc/ && sqlc generate && cd ..'
@@ -188,6 +196,13 @@ alias pserv='systemctl start postgresql.service'
 
 #open vscode and exit the terminal
 alias vs='code . && exit'
+
+#alias for artifik
+alias art='pnpm run format && pnpm run lint && pnpm run typecheck'
+alias aapi='cd /home/pacific/Comono/Artifik/artifik/apps/api && export AWS_PROFILE='artifik-dev' && systemctl start docker.service && docker start mysqldb && pnpm run dev'
+
+#monitor setup (monitor on right)
+alias ms='~/bin/right_m.sh'
 
 #remove bash_history limit 
 HISTSIZE=-1 
@@ -201,3 +216,12 @@ HISTIGNORE='ls:e'
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# pnpm
+export PNPM_HOME="/home/pacific/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+

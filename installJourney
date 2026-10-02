@@ -12,10 +12,13 @@ $$ Second problem - Sound
 Install pulseaudio, pavucontrol.
 
 Now adding ssh keys for diffrent accounts.
-Configuring git 
+
+Configuring git :
+    use config file for personal and company repos seperately using `includeIf gitdir`
 
 Cloning the git bare repo for dotfiles.
     refer :  https://www.atlassian.com/git/tutorials/dotfiles
+
 
 # To stop tracking off all the files in home directory : 
   config config --local status.showUntrackedFiles no
@@ -30,11 +33,51 @@ Follow this : https://wiki.archlinux.org/title/Blueman
 Install pulseadudio-bluetooth to link pulseaudio with bluetooth headsets.
 
 Craziest of all xD  ( Tried a bunch of bluetooth managers before it xD )
-
 $$ Setting up pass (gpg key, pass stores on laptop, mobile)
 
 refer for setup 1st time (not req again though) :  https://www.youtube.com/watch?v=sVkURNfxPd4
 for setting it up on new  system :  https://gist.github.com/abtrout/d64fb11ad6f9f49fa325
+    * Initialize gpg key (import secret key) : gpg --allow-secret-key-import --import keygpg
+    * set the trust level of gpg key : gpg --edit-key <KEY_ID> 
+                                       gpg> trust
+    * pass git init is used to setup local store, configure git global email,username first 
+    * pass git add remote origin ....  (can change local branch from master to main)
+    * pass git rebase
+
+Add rofi-pass, pass-otp etc...
 
     for mobile : use openkeychain for gpg management
                  and password store ( available on fdroid and it's website if not on playstore)
+
+    add cronjob to update pass with git repo ( crontab -e to edit cronjob table)
+
+
+##vscode extensions : 
+bradlc.vscode-tailwindcss
+burkeholland.simple-react-snippets
+docker.docker
+dsznajder.es7-react-js-snippets
+eamodio.gitlens
+ecmel.vscode-html-css
+esbenp.prettier-vscode
+formulahendry.auto-close-tag
+github.copilot
+github.copilot-chat
+hashicorp.hcl
+hashicorp.terraform
+inferrinizzard.prettier-sql-vscode
+kevinrose.vsc-python-indent
+mechatroner.rainbow-csv
+ms-azuretools.vscode-containers
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+ms-vscode.makefile-tools
+planbcoding.vscode-react-refactor
+sonarsource.sonarlint-vscode
+tyriar.lorem-ipsum
+vincaslt.highlight-matching-tag
+visualstudioexptteam.intellicode-api-usage-examples
+visualstudioexptteam.vscodeintellicode
+
